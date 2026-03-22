@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HYPEHAUS — Where the Night Lives</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#07040f;
+  --deep:#0e0818;
+  --card:#130d1f;
+  --border:rgba(160,90,255,0.14);
+  --white:#f5f0ff;
+  --dim:rgba(245,240,255,0.44);
+  --p:#a855f7;--m:#e040fb;--pk:#ff4dc4;--or:#ff6b35;--cy:#00e5ff;--gr:#06ffa5;--yw:#ffd60a;
+  --gA:linear-gradient(135deg,#7c3aed,#e040fb,#ff4dc4);
+  --gE:linear-gradient(135deg,#a855f7,#06ffa5);
+  --gT:linear-gradient(135deg,#c084fc,#f472b6,#fb923c);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:none}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");pointer-events:none;z-index:9997}
+::-webkit-scrollbar{width:2px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--p)}
+
+/* CURSOR */
+#CR{position:fixed;pointer-events:none;z-index:10000;transform:translate(-50%,-50%)}
+#CR-r{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(192,132,252,.5);transition:all .2s}
+#CR-d{position:absolute;top:50%;left:50%;width:5px;height:5px;border-radius:50%;background:var(--m);box-shadow:0 0 10px var(--m);transform:translate(-50%,-50%)}
+.hov #CR-r{width:48px;height:48px;border-color:rgba(224,64,251,.3);background:rgba(124,58,237,.06)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:998;height:58px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,4,15,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nl{font-size:.88rem;font-weight:800;letter-spacing:.18em;background:var(--gT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nm{display:flex;gap:28px;list-style:none}
+.nm a{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .18s}
+.nm a:hover{color:var(--white)}
+
+/* ═══════════ HERO ═══════════ */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:58px 40px 0}
+
+.orb{position:absolute;border-radius:50%;filter:blur(110px);animation:oF var(--d) ease-in-out infinite alternate}
+.o1{width:600px;height:600px;background:rgba(124,58,237,.36);top:-160px;left:-160px;--d:9s}
+.o2{width:480px;height:480px;background:rgba(224,64,251,.26);top:10%;right:-100px;--d:11s;animation-delay:-4s}
+.o3{width:380px;height:380px;background:rgba(255,77,196,.18);bottom:-80px;left:28%;--d:8s;animation-delay:-6s}
+@keyframes oF{from{transform:scale(1)}to{transform:scale(1.12) translateY(-40px)}}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(160,90,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(160,90,255,.05) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent 80%)}
+.hvis{position:absolute;inset:0;background:radial-gradient(ellipse 85% 85% at 50% 50%,transparent 30%,var(--black) 100%);z-index:1}
+
+.hc{position:relative;z-index:2;max-width:900px}
+
+.h-eye{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;background:rgba(124,58,237,.16);border:1px solid rgba(168,85,247,.26);color:var(--p);padding:7px 18px;border-radius:100px;margin-bottom:32px;opacity:0;animation:fUp .7s ease .1s forwards}
+.edot{width:5px;height:5px;border-radius:50%;background:var(--m);box-shadow:0 0 8px var(--m);animation:bl 1.3s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.1}}
+
+.h-title{font-size:clamp(4.5rem,13vw,13rem);font-weight:800;line-height:.84;letter-spacing:-.04em;opacity:0;animation:fUp .9s ease .22s forwards}
+.ht1{display:block;color:var(--white)}
+.ht2{display:block;background:var(--gT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+.ht3{display:block;color:transparent;-webkit-text-stroke:1.5px rgba(192,132,252,.2);font-size:clamp(3rem,9vw,9rem)}
+
+.h-sub{font-family:'DM Mono',monospace;font-size:clamp(.8rem,1.3vw,.96rem);line-height:2;color:var(--dim);max-width:500px;margin:28px auto 0;opacity:0;animation:fUp .8s ease .4s forwards}
+.h-sub b{color:var(--white);font-weight:500}
+
+/* Chips */
+.chips{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:36px;position:relative;z-index:2;opacity:0;animation:fUp .8s ease .54s forwards}
+.chip{font-family:'DM Mono',monospace;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 15px;border-radius:100px;border:1px solid var(--border);color:var(--dim);background:rgba(124,58,237,.07);transition:all .18s;cursor:default}
+.chip:hover{border-color:var(--p);color:var(--p)}
+
+/* Ticker */
+.ticker{position:relative;z-index:2;overflow:hidden;white-space:nowrap;border-top:1px solid var(--border);padding:12px 0;margin-top:52px;width:100%}
+.ti{display:inline-block;animation:tk 28s linear infinite;font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.ti .hi{background:var(--gT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════ WHAT WE ARE ═══════════ */
+.what{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border)}
+.wi{padding:36px 28px;border-right:1px solid var(--border);background:var(--deep);position:relative;overflow:hidden;transition:background .28s}
+.wi:last-child{border-right:none}
+.wi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .45s}
+.wi:nth-child(1)::before{background:var(--gA)}
+.wi:nth-child(2)::before{background:linear-gradient(90deg,var(--m),var(--pk),var(--or))}
+.wi:nth-child(3)::before{background:linear-gradient(90deg,var(--p),var(--cy))}
+.wi:nth-child(4)::before{background:var(--gE)}
+.wi:hover{background:var(--card)}
+.wi:hover::before{transform:scaleX(1)}
+.wi-icon{font-size:1.8rem;margin-bottom:14px;display:block}
+.wi-title{font-size:1rem;font-weight:700;margin-bottom:7px}
+.wi-body{font-family:'DM Mono',monospace;font-size:.72rem;line-height:1.85;color:var(--dim)}
+
+/* ═══════════ STORY ═══════════ */
+.story{padding:90px 48px;background:var(--black);position:relative;overflow:hidden}
+.story::before{content:'';position:absolute;top:-200px;right:-200px;width:550px;height:550px;background:radial-gradient(circle,rgba(224,64,251,.08),transparent 70%);pointer-events:none}
+.story-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+
+.slabel{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--p);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.slabel::before{content:'';width:18px;height:1px;background:var(--p)}
+.stitle{font-size:clamp(2rem,4vw,3.4rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;margin-bottom:20px}
+.stitle em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;background:var(--gT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.sq{font-family:'Instrument Serif',serif;font-size:1.2rem;font-style:italic;line-height:1.75;color:rgba(245,240,255,.8);border-left:2px solid;border-image:var(--gA) 1;padding-left:20px;margin-bottom:22px}
+.sp{font-family:'DM Mono',monospace;font-size:.82rem;line-height:1.95;color:var(--dim)}
+.sp b{color:var(--white);font-weight:500}
+
+/* Founder card */
+.fc{background:var(--card);border:1px solid var(--border);padding:32px;position:relative;overflow:hidden}
+.fc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gA)}
+.fc-tag{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;background:var(--gT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.fc-name{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin-bottom:3px}
+.fc-role{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);margin-bottom:18px}
+.fc-bio{font-family:'DM Mono',monospace;font-size:.78rem;line-height:1.9;color:var(--dim)}
+.fc-bio b{color:var(--white);font-weight:500}
+.fchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.fchip{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border:1px solid var(--border);color:var(--dim);border-radius:100px}
+.fc-ig{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;border:1px solid var(--border);padding:7px 16px;border-radius:100px;transition:all .18s}
+.fc-ig:hover{border-color:rgba(168,85,247,.5);color:var(--p);background:rgba(124,58,237,.08)}
+
+/* ═══════════ CAFE KOT ═══════════ */
+.cafekot{padding:90px 48px;background:var(--deep);position:relative;overflow:hidden}
+.cafekot::before{content:'';position:absolute;top:-150px;right:-150px;width:480px;height:480px;background:radial-gradient(circle,rgba(6,255,165,.06),transparent 70%);pointer-events:none}
+.ck-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:center}
+
+/* Phone */
+.phone{background:var(--card);border:1px solid rgba(6,255,165,.16);border-radius:22px;padding:22px 18px;max-width:270px;margin:0 auto;box-shadow:0 0 44px rgba(6,255,165,.05)}
+.ph-bar{display:flex;align-items:center;gap:7px;margin-bottom:18px;font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase}
+.ph-dot{width:5px;height:5px;border-radius:50%;background:var(--gr);box-shadow:0 0 6px var(--gr);animation:bl 1.4s infinite}
+.ph-lbl{color:var(--gr)}
+.ph-list{display:flex;flex-direction:column;gap:8px}
+.ph-item{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px 13px;display:flex;align-items:center;gap:11px;transition:all .18s}
+.ph-item:hover{background:rgba(6,255,165,.05);border-color:rgba(6,255,165,.22)}
+.ph-em{font-size:1.25rem;flex-shrink:0}
+.ph-nm{font-size:.82rem;font-weight:700}
+.ph-dt{font-family:'DM Mono',monospace;font-size:.57rem;color:var(--dim);margin-top:1px}
+.ph-bd{font-family:'DM Mono',monospace;font-size:.55rem;font-weight:500;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-left:auto}
+.bg{background:rgba(6,255,165,.12);border:1px solid rgba(6,255,165,.26);color:var(--gr)}
+.bp{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.26);color:var(--p)}
+.by{background:rgba(255,214,10,.1);border:1px solid rgba(255,214,10,.26);color:var(--yw)}
+
+.ck-text .stitle em{background:var(--gE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ckp{font-family:'DM Mono',monospace;font-size:.82rem;line-height:2;color:var(--dim);margin-top:18px}
+.ckp b{color:var(--white);font-weight:500}
+.ck-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.ck-pill{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);color:var(--dim);border-radius:100px;transition:all .18s;cursor:default}
+.ck-pill:hover{border-color:rgba(6,255,165,.4);color:var(--gr)}
+
+/* ═══════════ WORLD ═══════════ */
+.world{padding:90px 48px;background:var(--black)}
+.world-inner{max-width:1100px;margin:0 auto}
+.world-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:16px}
+.world-sub{font-family:'DM Mono',monospace;font-size:.78rem;line-height:1.85;color:var(--dim);max-width:340px}
+.world-sub b{color:var(--white);font-weight:500}
+
+.cgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:2px}
+.cc{background:var(--card);border:1px solid var(--border);padding:24px 20px;position:relative;transition:background .25s,border-color .25s}
+.cc:hover{background:#170f28;border-color:rgba(160,90,255,.26)}
+.cc-phase{position:absolute;top:12px;right:12px;font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(124,58,237,.16);border:1px solid rgba(168,85,247,.2);color:var(--p);padding:3px 8px;border-radius:4px}
+.cc-flag{font-size:1.6rem;margin-bottom:10px;display:block}
+.cc-city{font-size:1rem;font-weight:700;letter-spacing:-.01em}
+.cc-status{font-family:'DM Mono',monospace;font-size:.57rem;display:flex;align-items:center;gap:5px;margin-top:8px}
+.sdot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
+.live .sdot{background:var(--gr);box-shadow:0 0 6px var(--gr);animation:bl 1.5s infinite}.live .cc-status span{color:var(--gr)}
+.soon .sdot{background:var(--yw)}.soon .cc-status span{color:var(--yw)}
+.plan .sdot{background:var(--cy)}.plan .cc-status span{color:var(--cy)}
+
+.wtotal{background:rgba(124,58,237,.07);border:1px solid rgba(168,85,247,.2);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.wt-main{font-size:1.8rem;font-weight:800;background:var(--gT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.wt-sub{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--dim);margin-top:4px}
+.wt-r{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--dim);text-align:right;line-height:1.9}
+.wt-r b{color:var(--white);font-weight:500}
+
+/* ═══════════ CLOSE ═══════════ */
+.close{padding:120px 48px;text-align:center;position:relative;overflow:hidden;background:var(--deep)}
+.close::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 100%,rgba(224,64,251,.1),transparent)}
+.cl{position:relative;z-index:1;max-width:800px;margin:0 auto}
+.cl-big{font-size:clamp(3rem,9vw,8rem);font-weight:800;line-height:.88;letter-spacing:-.04em;margin-bottom:20px}
+.cl-big span{display:block}
+.cll1{color:var(--white)}
+.cll2{background:var(--gT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cll3{color:transparent;-webkit-text-stroke:1.5px rgba(192,132,252,.18);font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(2rem,6vw,5.8rem)}
+.cl-sub{font-family:'DM Mono',monospace;font-size:.88rem;line-height:2;color:var(--dim)}
+.cl-sub b{color:var(--white);font-weight:500}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid var(--border);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.fl{font-size:.88rem;font-weight:800;letter-spacing:.18em;background:var(--gT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fc-copy{font-family:'DM Mono',monospace;font-size:.58rem;color:rgba(245,240,255,.18)}
+.fsoc{display:flex;gap:8px;list-style:none}
+.fsoc a{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;padding:5px 12px;border:1px solid var(--border);border-radius:100px;transition:all .18s}
+.fsoc a:hover{border-color:var(--p);color:var(--p);background:rgba(124,58,237,.1)}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.r.on{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
+
+@keyframes fUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .what{grid-template-columns:1fr 1fr}
+  .story-inner,.ck-inner{grid-template-columns:1fr;gap:44px}
+  .cgrid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:600px){
+  nav{padding:0 20px}.nm{display:none}
+  .hero,.story,.cafekot,.world,.close{padding-left:20px;padding-right:20px}
+  .what{grid-template-columns:1fr 1fr}
+  .cgrid{grid-template-columns:repeat(2,1fr)}
+  .wtotal{flex-direction:column}.wt-r{text-align:left}
+  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;gap:14px}
+}
+</style>
+</head>
+<body>
+
+<div id="CR"><div id="CR-r"></div><div id="CR-d"></div></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nl">HYPEHAUS</div>
+  <ul class="nm">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#cafekot">Cafe Kot</a></li>
+    <li><a href="#world">Global</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="hgrid"></div><div class="hvis"></div>
+  <div class="hc">
+    <div class="h-eye"><span class="edot"></span>India's Nightlife OS<span class="edot"></span></div>
+    <h1 class="h-title">
+      <span class="ht1">Your night.</span>
+      <span class="ht2">Unlocked.</span>
+      <span class="ht3">Finally.</span>
+    </h1>
+    <p class="h-sub"><b>Events. Tickets. Cafés. Community.</b><br>Everything nightlife — one place. Built for Gen Z.</p>
+    <div class="chips">
+      <span class="chip">🎪 Events</span>
+      <span class="chip">🎟 Tickets</span>
+      <span class="chip">☕ Cafe Kot</span>
+      <span class="chip">📡 Discovery</span>
+      <span class="chip">🔗 Community</span>
+      <span class="chip">🌍 Going Global</span>
+    </div>
+  </div>
+  <div class="ticker" style="width:100%;margin-top:48px">
+    <div class="ti">&nbsp;<span class="hi">EVENTS</span> · TICKETS · <span class="hi">CAFÉS</span> · NIGHTLIFE · <span class="hi">DISCOVERY</span> · COMMUNITY · <span class="hi">HYPEHAUS</span> · <span class="hi">EVENTS</span> · TICKETS · <span class="hi">CAFÉS</span> · NIGHTLIFE · <span class="hi">DISCOVERY</span> · COMMUNITY · <span class="hi">HYPEHAUS</span> ·&nbsp;</div>
+  </div>
+</section>
+
+<!-- ═══ WHAT WE ARE ═══ -->
+<div class="what">
+  <div class="wi r">
+    <span class="wi-icon">🎪</span>
+    <div class="wi-title">Live Events</div>
+    <p class="wi-body">Curated, sold-out nights. Scarcity-driven. Every event is an IP — built to go viral.</p>
+  </div>
+  <div class="wi r d1">
+    <span class="wi-icon">🎟</span>
+    <div class="wi-title">Smart Tickets</div>
+    <p class="wi-body">Buy a ticket. Unlock a gated social world with verified attendees only. Dynamic pricing, QR entry.</p>
+  </div>
+  <div class="wi r d2">
+    <span class="wi-icon">🗺</span>
+    <div class="wi-title">Discovery Feed</div>
+    <p class="wi-body">Personalised nightlife feed. See what's hot, who's going, live Hype Scores. Zero searching.</p>
+  </div>
+  <div class="wi r d3">
+    <span class="wi-icon">🔗</span>
+    <div class="wi-title">Community</div>
+    <p class="wi-body">The rave ends. The community doesn't. Members get early drops and exclusive access.</p>
+  </div>
+</div>
+
+<!-- ═══ STORY ═══ -->
+<section class="story" id="story">
+  <div class="story-inner">
+    <div class="r">
+      <div class="slabel">The Origin</div>
+      <h2 class="stitle">Built by a guy<br>who loves <em>music</em><br>& open air.</h2>
+      <p class="sq">"I wasn't building a company. I was trying to find a good night — and kept hitting broken walls."</p>
+      <p class="sp">I'm <b>Aditya</b> — CS Engineering student obsessed with music festivals and live energy. India's nightlife was broken — no discovery, sketchy tickets, zero community. So I <b>built the fix.</b></p>
+    </div>
+    <div class="r d1">
+      <div class="fc">
+        <div class="fc-tag">// Founder & CEO</div>
+        <div class="fc-name">Aditya</div>
+        <div class="fc-role">Hypehaus Entertainment Pvt. Ltd. · CS&E Student</div>
+        <div class="fc-bio">Not a suit. Just a <b>kid who loves music</b>, found massive gaps, and built the solution. <b>The market was broken. We fixed it.</b></div>
+        <div class="fchips">
+          <span class="fchip">Music Festivals</span>
+          <span class="fchip">Open Air</span>
+          <span class="fchip">Tech Builder</span>
+          <span class="fchip">Gen Z</span>
+        </div>
+        <a href="https://www.instagram.com/adityaa.016?igsh=azVrNnJpaWV6YXB1&utm_source=qr" target="_blank" rel="noopener" class="fc-ig">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          @adityaa.016
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAFE KOT ═══ -->
+<section class="cafekot" id="cafekot">
+  <div class="ck-inner">
+    <div class="r">
+      <div class="phone">
+        <div class="ph-bar"><span class="ph-dot"></span><span class="ph-lbl">Near You Now</span></div>
+        <div class="ph-list">
+          <div class="ph-item"><div class="ph-em">☕</div><div><div class="ph-nm">The Third Wave</div><div class="ph-dt">0.4 km · Open till 1am</div></div><div class="ph-bd bg">20% Off</div></div>
+          <div class="ph-item"><div class="ph-em">🎵</div><div><div class="ph-nm">Vinyl & Co.</div><div class="ph-dt">1.2 km · Live DJ tonight</div></div><div class="ph-bd by">Live</div></div>
+          <div class="ph-item"><div class="ph-em">🌙</div><div><div class="ph-nm">Late Night Brew</div><div class="ph-dt">0.8 km · Chill vibes</div></div><div class="ph-bd bp">Members</div></div>
+          <div class="ph-item"><div class="ph-em">🎧</div><div><div class="ph-nm">Basement Café</div><div class="ph-dt">2.1 km · Pre-party spot</div></div><div class="ph-bd bg">VIP</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ck-text r d1">
+      <div class="slabel">New Vertical</div>
+      <h2 class="stitle">Cafe <em>Kot</em></h2>
+      <p class="ckp">The night starts at 7pm, not 11pm. <b>Cafe Kot</b> lists every great café and late-night spot — with member deals and live event cross-promos built into the feed.</p>
+      <p class="ckp">Great spots get found. <b>Hypehaus members get exclusive access.</b></p>
+      <div class="ck-pills">
+        <span class="ck-pill">📍 Listed & Discovered</span>
+        <span class="ck-pill">💜 Member Deals</span>
+        <span class="ck-pill">🎪 Event Tie-ins</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORLD ═══ -->
+<section class="world" id="world">
+  <div class="world-inner">
+    <div class="world-head r">
+      <div>
+        <div class="slabel">Global Expansion</div>
+        <h2 class="stitle">India first.<br>Then <em>the world.</em></h2>
+      </div>
+      <p class="world-sub">Targeting <b>10% of India's ₹15,000Cr</b> event industry — then following Gen Z globally.</p>
+    </div>
+    <div class="cgrid">
+      <div class="cc live r"><div class="cc-phase">P1</div><span class="cc-flag">🇮🇳</span><div class="cc-city">India</div><div class="cc-status"><span class="sdot"></span><span>Building now</span></div></div>
+      <div class="cc soon r d1"><div class="cc-phase">P2</div><span class="cc-flag">🇦🇪</span><div class="cc-city">Dubai</div><div class="cc-status"><span class="sdot"></span><span>2026</span></div></div>
+      <div class="cc soon r d2"><div class="cc-phase">P2</div><span class="cc-flag">🇬🇧</span><div class="cc-city">London</div><div class="cc-status"><span class="sdot"></span><span>2026</span></div></div>
+      <div class="cc plan r d1"><div class="cc-phase">P3</div><span class="cc-flag">🇸🇬</span><div class="cc-city">Singapore</div><div class="cc-status"><span class="sdot"></span><span>2027</span></div></div>
+      <div class="cc plan r d2"><div class="cc-phase">P3</div><span class="cc-flag">🇺🇸</span><div class="cc-city">New York</div><div class="cc-status"><span class="sdot"></span><span>2027</span></div></div>
+      <div class="cc plan r d3"><div class="cc-phase">P3</div><span class="cc-flag">🇮🇩</span><div class="cc-city">Bali</div><div class="cc-status"><span class="sdot"></span><span>2027</span></div></div>
+    </div>
+    <div class="wtotal r">
+      <div><div class="wt-main">10% of ₹15,000Cr</div><div class="wt-sub">India target · then global</div></div>
+      <div class="wt-r">Global TAM <b>$1.1 Trillion</b> by 2030</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CLOSE ═══ -->
+<section class="close">
+  <div class="cl r">
+    <div class="cl-big">
+      <span class="cll1">The night</span>
+      <span class="cll2">belongs to you.</span>
+      <span class="cll3">Own it.</span>
+    </div>
+    <p class="cl-sub"><b>Hypehaus is your home.</b> Events, tickets, cafés, community — all of it, one place.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fl">HYPEHAUS</div>
+  <div class="fc-copy">© 2026 Hypehaus Entertainment Pvt. Ltd.</div>
+  <ul class="fsoc">
+    <li><a href="https://www.instagram.com/hypehaus.co?igsh=ZGY1bjZqcm94eXhw&utm_source=qr" target="_blank" rel="noopener">Instagram</a></li>
+    <li><a href="https://www.linkedin.com/company/hypehaus-co/" target="_blank" rel="noopener">LinkedIn</a></li>
+  </ul>
+</footer>
+
+<script>
+const CR = document.getElementById('CR');
+document.addEventListener('mousemove', e => { CR.style.left = e.clientX+'px'; CR.style.top = e.clientY+'px'; });
+document.querySelectorAll('a,.chip,.fchip,.ck-pill,.wi,.cc,.ph-item').forEach(el => {
+  el.addEventListener('mouseenter', () => CR.classList.add('hov'));
+  el.addEventListener('mouseleave', () => CR.classList.remove('hov'));
+});
+const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('on'); }), {threshold:.06});
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
